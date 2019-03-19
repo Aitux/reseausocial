@@ -80,7 +80,7 @@ public class LoginPage extends HttpServlet {
                     "        </div>\n" +
                     "    </nav>\n" +
                     "    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                    "        <form action=\"/miagebook\" method=\"post\">\n" +
+                    "        <form action=\"/SimpleServlet-1/miagebook\" method=\"post\">\n" +
                     "            <div class=\"form-group\">\n" +
                     "                <label for=\"inputEmail\">Email address</label>\n" +
                     "                <input type=\"email\" name=\"inputEmail\" class=\"form-control\" id=\"inputEmail\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n" +

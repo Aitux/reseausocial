@@ -39,12 +39,12 @@ public class SignupPage extends HttpServlet {
                 "        <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
                 "            <ul class=\"navbar-nav mr-auto\">\n" +
                 "                <li class=\"nav-item\">\n" +
-                "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/miagebook\">Home</a>\n" +
+                "                    <a class=\"nav-link\" href=\"#\">Home</a>\n" +
                 "                </li>\n" +
                 "            </ul>\n" +
                 "        </div>\n" +
                 "        <div class=\"mx-auto order-0\">\n" +
-                "            <a class=\"navbar-brand mx-auto\" href=\"/SimpleServlet-1/miagebook\">miagebook</a>\n" +
+                "            <a class=\"navbar-brand mx-auto\" href=\"#\">miagebook</a>\n" +
                 "            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
                 "                <span class=\"navbar-toggler-icon\"></span>\n" +
                 "            </button>\n" +
@@ -52,17 +52,17 @@ public class SignupPage extends HttpServlet {
                 "        <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
                 "            <ul class=\"navbar-nav ml-auto\">\n" +
                 "                <li class=\"nav-item\">\n" +
-                "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/signin\">Sign in</a>\n" +
+                "                    <a class=\"nav-link\" href=\"/login\">Sign in</a>\n" +
                 "                </li>\n" +
                 "                <li class=\" nav-item\">\n" +
-                "                    <a class=\"nav-link active\" href=\"/SimpleServlet-1/signup\">Sign up</a>\n" +
+                "                    <a class=\"nav-link active\" href=\"#\">Sign up</a>\n" +
                 "                </li>\n" +
                 "            </ul>\n" +
                 "        </div>\n" +
                 "    </nav>\n" +
                 "\n" +
                 "    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                "        <form action=\"\" method=\"post\">\n" +
+                "        <form action=\"/SimpleServlet-1/signup\" method=\"post\">\n" +
                 "            <div class=\"form-group\">\n" +
                 "                <label for=\"inputEmail\">Email address</label>\n" +
                 "                <input type=\"email\" class=\"form-control\" name=\"email\" id=\"inputEmail\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n" +
@@ -74,7 +74,7 @@ public class SignupPage extends HttpServlet {
                 "            </div>\n" +
                 "            <div class=\"form-group\">\n" +
                 "                <label for=\"formControlSelect\">Sexe</label>\n" +
-                "                <select class=\"form-control\" id=\"formControlSelect1\" name=\"sexe\">\n" +
+                "                <select class=\"form-control\" id=\"formControlSelect\" name=\"sexe\">\n" +
                 "                    <option>Homme</option>\n" +
                 "                    <option>Femme</option>\n" +
                 "                    <option>Autre</option>\n" +
@@ -83,11 +83,11 @@ public class SignupPage extends HttpServlet {
                 "            <div class=\"form-group row\">\n" +
                 "                <label class=\"col-sm-2 col-form-label\" for=\"formControlInput\">First Name</label>\n" +
                 "                <div class=\"col-sm-4\">\n" +
-                "                    <input type=\"text\" name=\"name\" class=\"form-control\" id=\"formControlInput\" placeholder=\"John\">\n" +
+                "                    <input type=\"text\" name=\"fname\" class=\"form-control\" id=\"formControlInput\" placeholder=\"John\">\n" +
                 "                </div>\n" +
                 "                <label class=\"col-sm-2 col-form-label\" for=\"formControlInput\">Last Name</label>\n" +
                 "                <div class=\"col-sm-4\">\n" +
-                "                    <input type=\"text\" name=\"name\" class=\"form-control\" id=\"formControlInput\" placeholder=\"Doe\">\n" +
+                "                    <input type=\"text\" name=\"lname\" class=\"form-control\" id=\"formControlInput2\" placeholder=\"Doe\">\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "\n" +
@@ -100,5 +100,11 @@ public class SignupPage extends HttpServlet {
                 "</body>\n" +
                 "\n" +
                 "</html>\n");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    {
+        super.doPost(req, resp);
     }
 }

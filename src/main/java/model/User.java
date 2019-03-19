@@ -1,11 +1,12 @@
 package model;
 
 public class User {
-    private String firstname;
-    private String lastname;
-    private String password;
-    private String email;
-    private String sexe;
+
+        private String firstname;
+        private String lastname;
+        private String password;
+        private String email;
+        private String sexe;
 
     public User() {
     }

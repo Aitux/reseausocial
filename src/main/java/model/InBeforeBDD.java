@@ -5,7 +5,7 @@ import java.util.List;
 
 public class InBeforeBDD {
 
-    List<User> users;
+    private List<User> users;
 
     private static InBeforeBDD ourInstance = new InBeforeBDD();
 
@@ -17,5 +17,14 @@ public class InBeforeBDD {
 
     private InBeforeBDD() {
         users = new ArrayList<>();
+    }
+
+    public void addUser(User u){
+        users.add(u);
+    }
+
+    public List<User> getUsers()
+    {
+        return users;
     }
 }
