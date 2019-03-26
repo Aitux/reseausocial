@@ -123,7 +123,17 @@ public class AccueilPage extends HttpServlet {
                             "\n" +
                             "    </div>\n");
         } else {
-
+            out.println("    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
+                    "        <div class=\"card text-center\">\n" +
+                    "            <div class=\"card-header\">From miagebook dev team</div>\n" +
+                    "            <div class=\"card-body\">\n" +
+                    "                <h4 class=\"card-title\">Thank you for trying our app !</h4>\n" +
+                    "                <p class=\"card-text\">It was made with &lt;3 and [ ] !</p>\n" +
+                    "                <p class=\"card-text\">This webapp is still \"Work in progress\" ! Do not hesitate to come back sometimes to check what we've done !</p>\n" +
+                    "            </div>\n" +
+                    "            <div class=\"card-footer text-muted\">03.26.2019</div>\n" +
+                    "        </div>\n" +
+                    "    </div>");
         }
         out.println(
                 "</body>\n" +
