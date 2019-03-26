@@ -3,7 +3,6 @@ package servlet;
 import model.InBeforeBDD;
 import model.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,19 +18,6 @@ public class LoginPage extends HttpServlet {
     protected void doGet(HttpServletRequest reqest, HttpServletResponse response)
             throws IOException {
         PrintWriter out = response.getWriter();
-        Cookie[] cookies = reqest.getCookies();
-        String username = "";
-        if (cookies != null) {
-            for (Cookie c :
-                    cookies) {
-                if (c.getName().equals("miagebook_username")) {
-                    username = c.getValue();
-                }
-                if (c.getName().equals("")) {
-
-                }
-            }
-        }
 
 
 //        if(username.equals("")) {
@@ -122,7 +108,7 @@ public class LoginPage extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String email = req.getParameter("inputEmail");
         String password = req.getParameter("inputPassword");
         User u = InBeforeBDD.getInstance().getUser(email, password);
@@ -136,7 +122,7 @@ public class LoginPage extends HttpServlet {
             resp.addCookie(cookie1);
 
             AccueilPage ap = new AccueilPage();
-            ap.doGet(req, resp);
+            resp.sendRedirect("/SimpleServlet-1/miagebook");
         } else {
             resp.sendRedirect("/SimpleServlet-1/signin?pass=error");
         }

@@ -3,7 +3,6 @@ package servlet;
 import model.InBeforeBDD;
 import model.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -109,7 +108,7 @@ public class SignupPage extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String pre = req.getParameter("fname");
         String nom = req.getParameter("lname");
         String pass = req.getParameter("password");
@@ -126,7 +125,6 @@ public class SignupPage extends HttpServlet {
         resp.addCookie(cookie);
         resp.addCookie(cookie1);
 
-        AccueilPage ap = new AccueilPage();
-        ap.doGet(req, resp);
+        resp.sendRedirect("/SimpleServlet-1/miagebook");
     }
 }
