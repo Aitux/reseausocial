@@ -23,6 +23,10 @@ public class User {
         return Security.sha256(password);
     }
 
+    public boolean exist(String email, String password) {
+        return this.password.equals(password) && this.email.equals(firstname);
+    }
+
     public String getFirstname() {
         return firstname;
     }

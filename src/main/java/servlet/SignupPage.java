@@ -1,4 +1,10 @@
+package servlet;
+
+import model.InBeforeBDD;
+import model.User;
+
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +14,7 @@ import java.io.PrintWriter;
 public class SignupPage extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
 
         out.println("<!DOCTYPE html>\n" +
@@ -103,8 +109,24 @@ public class SignupPage extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    {
-        super.doPost(req, resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pre = req.getParameter("fname");
+        String nom = req.getParameter("lname");
+        String pass = req.getParameter("password");
+        String email = req.getParameter("email");
+        String sexe = req.getParameter("sexe");
+
+        User u = new User(pre, nom, pass, email, sexe);
+        InBeforeBDD.getInstance().addUser(u);
+        Cookie cookie = new Cookie("miagebook_mail", u.getEmail());
+        cookie.setMaxAge(60 * 60 * 24); //cookie set for 1 day
+        Cookie cookie1 = new Cookie("miagebook_password", u.getPassword());
+        cookie1.setMaxAge(60 * 60 * 24); //cookie set for 1 day
+
+        resp.addCookie(cookie);
+        resp.addCookie(cookie1);
+
+        AccueilPage ap = new AccueilPage();
+        ap.doGet(req, resp);
     }
 }

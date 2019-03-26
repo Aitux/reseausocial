@@ -6,7 +6,7 @@
   <artifactId>SimpleServlet</artifactId>
   <version>1</version>
   <packaging>war</packaging>
-  <name>LoginPage</name>
+    <name>servlet.LoginPage</name>
   <url>https://javatutorial.net</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

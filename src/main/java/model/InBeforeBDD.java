@@ -1,30 +1,68 @@
 package model;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InBeforeBDD {
 
-    private List<User> users;
-
     private static InBeforeBDD ourInstance = new InBeforeBDD();
-
-    public static InBeforeBDD getInstance() {
-        return ourInstance;
-    }
-
-
+    private List<User> users;
 
     private InBeforeBDD() {
         users = new ArrayList<>();
     }
 
-    public void addUser(User u){
+    public static InBeforeBDD getInstance() {
+        return ourInstance;
+    }
+
+    public User getUser(HttpServletRequest req) {
+        Cookie[] cookies = req.getCookies();
+        String mail = "";
+        String password = "";
+        if (cookies != null) {
+            for (Cookie c :
+                    cookies) {
+                if (c.getName().equals("miagebook_mail")) {
+                    mail = c.getValue();
+                }
+                if (c.getName().equals("miagebook_password")) {
+                    password = c.getValue();
+                }
+            }
+        }
+
+        String finalPassword = password;
+        String finalUsername = mail;
+        List<User> us = users.stream().filter(x -> x.exist(finalUsername, finalPassword)).collect(Collectors.toList());
+        if (us.size() > 0)
+            return us.get(0);
+        else
+            return null;
+    }
+
+    public User getUser(String email, String password) {
+
+        List<User> us = users.stream().filter(x -> x.exist(email, Security.sha256(password))).collect(Collectors.toList());
+        if (us.size() > 0)
+            return us.get(0);
+        else
+            return null;
+    }
+
+    public boolean isConnected(HttpServletRequest req) {
+        User us = getUser(req);
+        return us != null;
+    }
+
+    public void addUser(User u) {
         users.add(u);
     }
 
-    public List<User> getUsers()
-    {
+    public List<User> getUsers() {
         return users;
     }
 }
