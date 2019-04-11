@@ -15,7 +15,11 @@ public class ProfilePage extends HttpServlet
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
     {
         PrintWriter out = resp.getWriter();
+        if(InBeforeBDD.getInstance().isConnected(req)){
+
+
         User current_user = InBeforeBDD.getInstance().getUser(req);
+
         out.println(current_user.getEmail());
         out.println(current_user.getFirstname());
         out.println(current_user.getLastname());
@@ -118,7 +122,10 @@ public class ProfilePage extends HttpServlet
         "<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>\n" +
         "</body>\n" +
         "</html>");
-
+        }
+        else{
+            resp.sendRedirect("/SimpleServlet-1/miagebook");
+        }
 
     }
 }
