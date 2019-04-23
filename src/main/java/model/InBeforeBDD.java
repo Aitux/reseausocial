@@ -82,4 +82,5 @@ public class InBeforeBDD {
     public List<User> getUsers() {
         return users;
     }
+
 }
