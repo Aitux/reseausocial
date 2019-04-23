@@ -5,13 +5,13 @@ public class Commentaire
 
     User user;
     String commentaire;
-    Status status;
+    Statut statut;
 
-    public Commentaire(User user, String commentaire, Status status)
+    public Commentaire(User user, String commentaire, Statut statut)
     {
         this.user = user;
         this.commentaire = commentaire;
-        this.status = status;
+        this.statut = statut;
     }
 
     public User getUser()
@@ -34,14 +34,14 @@ public class Commentaire
         this.commentaire = commentaire;
     }
 
-    public Status getStatus()
+    public Statut getStatut()
     {
-        return status;
+        return statut;
     }
 
-    public void setStatus(Status status)
+    public void setStatut(Statut statut)
     {
-        this.status = status;
+        this.statut = statut;
     }
 
 }

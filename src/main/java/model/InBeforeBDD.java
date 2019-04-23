@@ -13,6 +13,10 @@ public class InBeforeBDD {
 
     private InBeforeBDD() {
         users = new ArrayList<>();
+        User u1 = new User("Océane", "Pruvost", "azerty", "oceane.pruvost@outlook.fr", "FEMME");
+        User u2 = new User("Jonas", "Voeltzel", "123", "jonas.voeltzel@live.fr", "HOMME");
+        User u3 = new User("Quentin", "Hageman", "0000", "xecto74@gmail.com", "HOMME");
+
     }
 
     public static InBeforeBDD getInstance() {
