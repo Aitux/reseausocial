@@ -44,12 +44,12 @@ public class SignupPage extends HttpServlet {
                 "        <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
                 "            <ul class=\"navbar-nav mr-auto\">\n" +
                 "                <li class=\"nav-item\">\n" +
-                "                    <a class=\"nav-link\" href=\"#\">Home</a>\n" +
+                "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/miagebook\">Home</a>\n" +
                 "                </li>\n" +
                 "            </ul>\n" +
                 "        </div>\n" +
                 "        <div class=\"mx-auto order-0\">\n" +
-                "            <a class=\"navbar-brand mx-auto\" href=\"#\">miagebook</a>\n" +
+                "            <a class=\"navbar-brand mx-auto\" href=\"/SimpleServlet-1/miagebook\">miagebook</a>\n" +
                 "            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
                 "                <span class=\"navbar-toggler-icon\"></span>\n" +
                 "            </button>\n" +
@@ -57,10 +57,10 @@ public class SignupPage extends HttpServlet {
                 "        <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
                 "            <ul class=\"navbar-nav ml-auto\">\n" +
                 "                <li class=\"nav-item\">\n" +
-                "                    <a class=\"nav-link\" href=\"/login\">Sign in</a>\n" +
+                "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/signin\">Sign in</a>\n" +
                 "                </li>\n" +
                 "                <li class=\" nav-item\">\n" +
-                "                    <a class=\"nav-link active\" href=\"#\">Sign up</a>\n" +
+                "                    <a class=\"nav-link active\" href=\"/SimpleServlet-1/signup\">Sign up</a>\n" +
                 "                </li>\n" +
                 "            </ul>\n" +
                 "        </div>\n" +
@@ -114,7 +114,7 @@ public class SignupPage extends HttpServlet {
         String pass = req.getParameter("password");
         String email = req.getParameter("email");
         String sexe = req.getParameter("sexe");
-
+        System.out.println("New User detected: " + pre + ", " + nom + ", " + pass + ", " + email + ", " + sexe);
         User u = new User(pre, nom, pass, email, sexe);
         InBeforeBDD.getInstance().addUser(u);
         Cookie cookie = new Cookie("miagebook_mail", u.getEmail());
@@ -124,7 +124,7 @@ public class SignupPage extends HttpServlet {
 
         resp.addCookie(cookie);
         resp.addCookie(cookie1);
-
+        System.out.println("Cookies set ! Redirection to miagebook");
         resp.sendRedirect("/SimpleServlet-1/miagebook");
     }
 }

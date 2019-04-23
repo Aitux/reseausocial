@@ -24,7 +24,7 @@ public class User {
     }
 
     public boolean exist(String email, String password) {
-        return this.password.equals(password) && this.email.equals(firstname);
+        return this.password.equals(password) && this.email.equals(email);
     }
 
     public String getFirstname() {

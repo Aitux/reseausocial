@@ -15,7 +15,7 @@ public class AccueilPage extends HttpServlet {
         PrintWriter out = resp.getWriter();
 
         boolean flag = InBeforeBDD.getInstance().isConnected(req);
-
+        System.out.println(flag);
 
         out.println("<!DOCTYPE html>\n" +
                 "<html lang=\"fr\">\n" +
@@ -139,5 +139,10 @@ public class AccueilPage extends HttpServlet {
                 "</body>\n" +
                         "\n" +
                         "</html>\n");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        doGet(req, resp);
     }
 }

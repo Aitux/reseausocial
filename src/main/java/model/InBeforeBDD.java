@@ -37,7 +37,13 @@ public class InBeforeBDD {
 
         String finalPassword = password;
         String finalUsername = mail;
+        System.out.println("pass: " + password);
+        System.out.println("mail: " + mail);
+        System.out.println("List users: ");
+        users.forEach(System.out::println);
         List<User> us = users.stream().filter(x -> x.exist(finalUsername, finalPassword)).collect(Collectors.toList());
+        us.forEach(System.out::println);
+        us.forEach(System.out::println);
         if (us.size() > 0)
             return us.get(0);
         else
@@ -47,6 +53,7 @@ public class InBeforeBDD {
     public User getUser(String email, String password) {
 
         List<User> us = users.stream().filter(x -> x.exist(email, Security.sha256(password))).collect(Collectors.toList());
+        us.forEach(System.out::println);
         if (us.size() > 0)
             return us.get(0);
         else
