@@ -4,6 +4,7 @@ import model.InBeforeBDD;
 import model.User;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -23,16 +24,18 @@ public class GestionFriendsResource {
 
     @GET
     @Path("/{mail}")
-    public List<User> getFriends(@PathParam("mail") String mail) {
+    public Response all(@PathParam("mail") String mail) {
         User u = InBeforeBDD.getInstance().getUser(mail);
-        return u.getFriends();
+        GenericEntity<List<User>> entity = new GenericEntity<List<User>>(u.getFriends()) {
+        };
+        return Response.ok(entity).build();
     }
 
     @DELETE
     @Path("/{mail}")
     public Response removeFriend(@PathParam("mail") String mail, User u) {
         User us = InBeforeBDD.getInstance().getUser(mail);
-        us.getFriends().remove(u);
+        us.getFriends().remove(InBeforeBDD.getInstance().getUser(u.getEmail()));
         return Response.ok().build();
     }
 }
