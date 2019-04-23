@@ -18,10 +18,6 @@ public class ProfilePage extends HttpServlet {
 
             User current_user = InBeforeBDD.getInstance().getUser(req);
 
-//        out.println(current_user.getEmail());
-//        out.println(current_user.getFirstname());
-//        out.println(current_user.getLastname());
-//        out.println(current_user.getSexe());
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "\n" +
@@ -106,8 +102,13 @@ public class ProfilePage extends HttpServlet {
                     "\n" +
                     "\n" +
                     "    <div class=\"form-group\">\n" +
-                    "        <label for=\"inputPassword\">Friend List</label>\n" +
-//                    "        <input type=\"Password\" name=\"repeatpassword\" class=\"form-control\" id=\"repeatPassword\" placeholder=\"\">\n" +
+                    "        <h3>Friend List</h3>\n" +
+                    "        <span>");
+            for (User u :
+                    current_user.getFriends()) {
+                out.println("<p>" + u.getFirstname() + " " + u.getLastname() + "</p> <button type=\"delete\" class=\"btn btn-danger\">X</button>");
+            }
+            out.println("        </span>" +
                     "    </div>\n" +
                     "    <button type=\"submit\" class=\"btn btn-primary\">Update my profile</button>\n" +
                     "</form>\n" +
