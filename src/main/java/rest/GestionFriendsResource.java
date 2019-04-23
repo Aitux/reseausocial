@@ -24,7 +24,7 @@ public class GestionFriendsResource {
 
     @GET
     @Path("/{mail}")
-    public Response getFriends(@PathParam("mail") String mail) {
+    public Response all(@PathParam("mail") String mail) {
         User u = InBeforeBDD.getInstance().getUser(mail);
         GenericEntity<List<User>> entity = new GenericEntity<List<User>>(u.getFriends()) {
         };
