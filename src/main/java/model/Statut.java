@@ -38,4 +38,12 @@ public class Status
     }
 
 
+    public void addCommentaire(Commentaire commentaire){
+        listCom.add(commentaire);
+    }
+
+    public void deleteCommentaire(Commentaire commentaire) {
+        listCom.remove(commentaire);
+    }
+
 }

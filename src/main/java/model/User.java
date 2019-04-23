@@ -11,6 +11,7 @@ public class User {
     private String email;
     private String sexe;
     private List<User> friends;
+    private List<Status> status;
 
     public User() {
     }
@@ -22,6 +23,7 @@ public class User {
         this.email = email;
         this.sexe = sexe;
         this.friends = new ArrayList<>();
+        this.status = new ArrayList<>();
     }
 
     private String hash(String password) {
@@ -86,5 +88,21 @@ public class User {
 
     public void setFriends(List<User> friends) {
         this.friends = friends;
+    }
+    public List<Status> getStatus() {
+        return status;
+    }
+
+    public void setStatus(List<Status> status) {
+        this.status = status;
+    }
+
+    public void addStatus(Status stat){
+        status.add(stat);
+    }
+
+
+    public void deleteStatus(Status stat) {
+        status.remove(stat);
     }
 }
