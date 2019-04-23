@@ -60,6 +60,16 @@ public class InBeforeBDD {
             return null;
     }
 
+    public User getUser(String email) {
+
+        List<User> us = users.stream().filter(x -> x.exist(email)).collect(Collectors.toList());
+        us.forEach(System.out::println);
+        if (us.size() > 0)
+            return us.get(0);
+        else
+            return null;
+    }
+
     public boolean isConnected(HttpServletRequest req) {
         User us = getUser(req);
         return us != null;
