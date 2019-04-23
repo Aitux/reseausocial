@@ -1,12 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
-        private String firstname;
-        private String lastname;
-        private String password;
-        private String email;
-        private String sexe;
+    private String firstname;
+    private String lastname;
+    private String password;
+    private String email;
+    private String sexe;
+    private List<User> friends;
 
     public User() {
     }
@@ -17,6 +21,7 @@ public class User {
         this.password = hash(password);
         this.email = email;
         this.sexe = sexe;
+        this.friends = new ArrayList<>();
     }
 
     private String hash(String password) {
@@ -25,6 +30,10 @@ public class User {
 
     public boolean exist(String email, String password) {
         return this.password.equals(password) && this.email.equals(email);
+    }
+
+    public boolean exist(String email) {
+        return this.email.equals(email);
     }
 
     public String getFirstname() {
@@ -67,9 +76,15 @@ public class User {
         this.email = email;
     }
 
-    public boolean isGoodPassword(String password){
+    public boolean isGoodPassword(String password) {
         return Security.sha256(password).equals(password);
     }
 
+    public List<User> getFriends() {
+        return friends;
+    }
 
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
 }
