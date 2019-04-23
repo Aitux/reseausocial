@@ -11,7 +11,7 @@ public class User {
     private String email;
     private String sexe;
     private List<User> friends;
-    private List<Statut> statuts;
+    private List<Status> statuts;
 
     public User() {
     }
@@ -90,20 +90,20 @@ public class User {
         this.friends = friends;
     }
 
-    public List<Statut> getStatuts() {
+    public List<Status> getStatuss() {
         return statuts;
     }
 
-    public void setStatuts(List<Statut> statuts) {
+    public void setStatuss(List<Status> statuts) {
         this.statuts = statuts;
     }
 
-    public void addStatus(Statut stat) {
+    public void addStatus(Status stat) {
         statuts.add(stat);
     }
 
 
-    public void deleteStatus(Statut stat) {
+    public void deleteStatus(Status stat) {
         statuts.remove(stat);
     }
 }
