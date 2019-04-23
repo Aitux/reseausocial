@@ -38,10 +38,10 @@ Les ressources disponibles sont les suivants:
    http://localhost:8080/servlet.LoginPage/myindex.jsp
 
 
-3) Une ressource REST, dans le fichier MyResource.java, et ça
+3) Une ressource REST, dans le fichier rest.MyResource.java, et ça
    correspond à l'adresse :
 
    http://localhost:8080/servlet.LoginPage/rest/myresource
 
-   (voir la correspondance dans le fichier ApplicationConfig.java)
+   (voir la correspondance dans le fichier rest.ApplicationConfig.java)
 
