@@ -70,4 +70,6 @@ public class User {
     public boolean isGoodPassword(String password){
         return Security.sha256(password).equals(password);
     }
+
+
 }
