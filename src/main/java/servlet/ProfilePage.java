@@ -14,10 +14,7 @@ public class ProfilePage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
         if (InBeforeBDD.getInstance().isConnected(req)) {
-
-
             User current_user = InBeforeBDD.getInstance().getUser(req);
-
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "\n" +
@@ -103,11 +100,16 @@ public class ProfilePage extends HttpServlet {
                     "\n" +
                     "    <div class=\"form-group\">\n" +
                     "        <h3>Friend List</h3>\n" +
-                    "        <span>");
+                    "<table class=\"table table-borderless\">\n<tbody>\n>");
             for (User u :
                     current_user.getFriends()) {
-                out.println("<p>" + u.getFirstname() + " " + u.getLastname() + "</p> <button type=\"delete\" class=\"btn btn-danger\">X</button>");
+                out.println("<tr>\n" +
+                        "<td>" + u.getFirstname() + "</td>\n" +
+                        "<td>" + u.getLastname() + "</td>\n" +
+                        "<td><button onclick=\"deleteFriend('"+u.getEmail()+"'\" type=\"button\" class=\"btn btn-danger\">X</button></td>\n" +
+                        "</tr>\n");
             }
+
             out.println("        </span>" +
                     "    </div>\n" +
                     "    <button type=\"submit\" class=\"btn btn-primary\">Update my profile</button>\n" +
