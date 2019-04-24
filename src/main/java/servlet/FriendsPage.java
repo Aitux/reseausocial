@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FriendsPage extends HttpServlet {
     @Override
@@ -15,7 +17,7 @@ public class FriendsPage extends HttpServlet {
         PrintWriter out = resp.getWriter();
         if (InBeforeBDD.getInstance().isConnected(req)) {
             User current_user = InBeforeBDD.getInstance().getUser(req);
-
+            List<User> notFriend = InBeforeBDD.getInstance().getUsers().stream().filter(x -> !current_user.getFriends().contains(x) && !x.getEmail().equals(current_user.getEmail())).collect(Collectors.toList());
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"en\">\n" +
                     "\n" +
@@ -39,6 +41,7 @@ public class FriendsPage extends HttpServlet {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
+                    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>\n" +
                     "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n" +
                     "    <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
                     "        <ul class=\"navbar-nav mr-auto\">\n" +
@@ -64,10 +67,35 @@ public class FriendsPage extends HttpServlet {
                     "</nav>\n" +
                     "\n" +
                     "<div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                    "<ul>");
-            for (User u : InBeforeBDD.getInstance().getUsers()) {
-                out.println("<li>" + u.getFirstname() + " " + u.getLastname() + "</li>");
+                    "<table class=\"table table-borderless\">\n<tbody>\n");
+            for (User u : notFriend) {
+                out.println("                <tr>\n" +
+                        "                    <td>" + u.getFirstname() + "</td>\n" +
+                        "                    <td>" + u.getLastname() + "</td>\n" +
+                        "                    <td><button onclick=\"addFriend('" + u.getEmail() + "')\" type=\"button\" id=\"" + u.getEmail() + "\" class=\"btn btn-success\">Add Friend...</button></td>\n" +
+                        "                </tr>\n");
             }
+            out.println("</tbody>" +
+                    "</table>" +
+                    "<script>\n" +
+                    "                function addFriend(mail) {\n" +
+                    "                    $.ajax({\n" +
+                    "                        type: 'POST',\n" +
+                    "                        url: \"v1/friend/\" + '" + current_user.getEmail() + "',\n" +
+                    "                        contentType: \"application/json\",\n" +
+                    "                        dataType: \"json\",\n" +
+                    "                        data: JSON.stringify({\"email\":mail}),\n" +
+                    "                        success: (data, textStatus, jqXHR) => {\n" +
+                    "                           location.reload();\n" +
+                    "                        },\n" +
+                    "                        error: (jqXHR, textStatus, errorThrown) => {\n" +
+                    "                           alert(textStatus);\n" +
+                    "                           location.reload();\n" +
+                    "                        }\n" +
+                    "                    });\n" +
+                    "                }\n" +
+                    "\n" +
+                    "            </script></body></html>");
 
 
         } else {

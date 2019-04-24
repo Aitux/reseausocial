@@ -41,4 +41,13 @@
         <servlet-name>profileServlet</servlet-name>
         <url-pattern>/profilepage</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>friendServlet</servlet-name>
+        <servlet-class>servlet.FriendsPage</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>friendServlet</servlet-name>
+        <url-pattern>/friend</url-pattern>
+    </servlet-mapping>
 </web-app>

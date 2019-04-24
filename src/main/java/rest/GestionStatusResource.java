@@ -1,7 +1,7 @@
 package rest;
 
 import model.InBeforeBDD;
-import model.Statut;
+import model.Status;
 import model.User;
 
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 public class GestionStatusResource {
     @POST
     @Path("/{mail}")
-    public Response addStatus(@PathParam("mail") String mail, Statut statut) {
+    public Response addStatus(@PathParam("mail") String mail, Status statut) {
         User me = InBeforeBDD.getInstance().getUser(mail);
         me.addStatus(statut);
         return Response.ok().build();
@@ -24,7 +24,7 @@ public class GestionStatusResource {
 
     @POST
     @Path("/{mail}")
-    public Response deleteStatus(@PathParam("mail") String mail, Statut statut) {
+    public Response deleteStatus(@PathParam("mail") String mail, Status statut) {
         User me = InBeforeBDD.getInstance().getUser(mail);
         me.deleteStatus(statut);
         return Response.ok().build();

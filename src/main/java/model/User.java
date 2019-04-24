@@ -90,11 +90,11 @@ public class User {
         this.friends = friends;
     }
 
-    public List<Status> getStatuss() {
+    public List<Status> getStatus() {
         return statuts;
     }
 
-    public void setStatuss(List<Status> statuts) {
+    public void setStatus(List<Status> statuts) {
         this.statuts = statuts;
     }
 
@@ -105,5 +105,16 @@ public class User {
 
     public void deleteStatus(Status stat) {
         statuts.remove(stat);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", sexe='" + sexe + '\'' +
+                '}';
     }
 }

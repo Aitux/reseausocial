@@ -16,9 +16,21 @@ public class GestionFriendsResource {
 
     @POST
     @Path("/{mail}")
-    public Response addFriend(@PathParam("mail") String mail, User newFriend) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addFriend(@PathParam("mail") String mail, User u) {
         User me = InBeforeBDD.getInstance().getUser(mail);
-        me.getFriends().add(InBeforeBDD.getInstance().getUser(newFriend.getEmail()));
+        User newFriend = InBeforeBDD.getInstance().getUser(u.getEmail());
+        System.out.println(mail);
+        System.out.println(u.getEmail());
+        System.out.println(me.getEmail());
+        System.out.println(newFriend.getEmail());
+        if (!me.getFriends().contains(newFriend)) {
+            me.getFriends().add(newFriend);
+            return Response.notModified().build();
+        }
+        System.out.println("===== Friends de " + me.getFirstname() + " ====");
+        me.getFriends().forEach(System.out::println);
+        System.out.println("==================");
         return Response.ok().build();
     }
 
