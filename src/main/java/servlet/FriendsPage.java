@@ -70,13 +70,13 @@ public class FriendsPage extends HttpServlet {
                     "<table class=\"table table-borderless\">\n<tbody>\n");
             for (User u : notFriend) {
                 out.println("                <tr>\n" +
-                        "                    <td>" + u.getFirstname() + "</td>\n" +
-                        "                    <td>" + u.getLastname() + "</td>\n" +
+                        "                    <td>" + u.getFirstname() + " " + u.getLastname()+"</td>\n" +
                         "                    <td><button onclick=\"addFriend('" + u.getEmail() + "')\" type=\"button\" id=\"" + u.getEmail() + "\" class=\"btn btn-success\">Add Friend...</button></td>\n" +
                         "                </tr>\n");
             }
             out.println("</tbody>" +
                     "</table>" +
+                    "<p class=\"text-muted\">If you need to remove a friend from your friendlist you can go to your profile</p>" +
                     "<script>\n" +
                     "                function addFriend(mail) {\n" +
                     "                    $.ajax({\n" +
@@ -89,7 +89,6 @@ public class FriendsPage extends HttpServlet {
                     "                           location.reload();\n" +
                     "                        },\n" +
                     "                        error: (jqXHR, textStatus, errorThrown) => {\n" +
-                    "                           alert(textStatus);\n" +
                     "                           location.reload();\n" +
                     "                        }\n" +
                     "                    });\n" +
