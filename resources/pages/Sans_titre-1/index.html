@@ -53,42 +53,78 @@
             </ul>
         </div>
     </nav>
+    <div class="container" style="padding-top: 2.5em">
+        <div class="form-group">
+            <textarea class="form-control" id="status" rows="3" placeholder="What's on your mind ?"></textarea>
+            <button onclick="postStatus()" type="button" class="btn btn-outline-primary btn-block">Create Status</button>
+        </div>
 
-    <!--
-    <div class="container" style="padding-top: 2.5em">
-        <div style="background-color: #4267B2">
-            <center><img class="img-fluid" src="https://i.imgur.com/fGlE2tP.png" alt="image"></center>
-        </div>
-        <div class="jumbotron">
-            <p class="lead">Welcome on Miagebook, this is our last project of CAR, and we are supposed to create a little social network.</p>
-            <hr class="my-4">
-            <p>We made it using: IntelliJ IDEA and Brackets. We also used Java, JavaScript, Ajax, HTMl, Bootstrap, JQuery.</p>
-            <p class="lead">
-                <a class="btn btn-primary btn-lg" href="/login" role="button">Try me !</a>
-            </p>
-        </div>
-        <div class="card">
-            <div class="card-header">Quote of the day</div>
+        <div class="card text-center" style="margin-top: 1em">
+            <div class="card-header">Simon Vandeputte</div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>As long as he lives, he's not dead !</p>
-                    <footer class="blockquote-footer">Océane Pruvost in <cite title="Source Title">Association MIAGE Lille</cite></footer>
-                </blockquote>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit asperiores, hic consectetur quasi eligendi quaerat ipsum, architecto iste deserunt laborum commodi dignissimos cupiditate, aspernatur omnis error consequatur id dolore deleniti.</p>
             </div>
-        </div> </div>
--->
-    <div class="container" style="padding-top: 2.5em">
-        <div class="card text-center">
-            <div class="card-header">From miagebook dev team</div>
-            <div class="card-body">
-                <h4 class="card-title">Thank you for trying our app !</h4>
-                <p class="card-text">It was made with &lt;3 and [ ] !</p>
-                <p class="card-text">This webapp is still "Work in progress" ! Do not hesitate to come back sometimes to
-                    check what we've done !</p>
+            <div class="card-footer text-muted">Oceane Pruvost: Such Wow</div>
+            <div class="card-footer text-muted">Jonas Voeltzel: Amazing</div>
+            <div class="card-footer text-muted">Quentin Hageman: Moelleux !</div>
+            <div class="card-footer text-muted">
+                <form class="form">
+                    <div class="form-group">
+                        <textarea class="form-control" id="comment" name="comment" rows="1" placeholder="Type your comment here.."></textarea>
+                    </div>
+                    <input type="hidden" id="1" value="IDDDDD">
+                    <button onclick="" class="btn btn-primary">Submit</button>
+                </form>
+
+
             </div>
-            <div class="card-footer text-muted">03.26.2019</div>
         </div>
+
     </div>
+    <script>
+        function postComment(idx) {
+            let x = $("#comment_" + idx).val();
+            $.ajax({
+                type: 'POST',
+                url: "SimpleServlet-1/v1/simon2310mike@gmail.com/" + idx,
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    "commentaire": x
+                }),
+                success: (data, textStatus, jqXHR) = > {
+                    location.reload();
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    console.log("error");
+                    location.reload();
+                }
+
+            });
+        }
+
+        function postStatus() {
+            let x = $("#status").val();
+            $.ajax({
+                type: 'POST',
+                url: "v1/XXXXXXXXXX",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify({
+                    "status": x
+                }),
+                success: (data, textStatus, jqXHR) = > {
+                    location.reload();
+                },
+                error: (jqXHR, textStatus, errorThrown) => {
+                    console.log("error");
+                    location.reload();
+                }
+
+            });
+        }
+
+    </script>
 </body>
 
 </html>

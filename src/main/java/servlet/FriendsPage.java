@@ -41,36 +41,42 @@ public class FriendsPage extends HttpServlet {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>\n" +
-                    "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n" +
-                    "    <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
-                    "        <ul class=\"navbar-nav mr-auto\">\n" +
-                    "            <li class=\"nav-item\">\n" +
-                    "                <a class=\"nav-link\" href=\"#\">Home</a>\n" +
-                    "            </li>\n" +
-                    "        </ul>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"mx-auto order-0\">\n" +
-                    "        <a class=\"navbar-brand mx-auto\" href=\"#\">miagebook</a>\n" +
-                    "        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
-                    "            <span class=\"navbar-toggler-icon\"></span>\n" +
-                    "        </button>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
-                    "        <ul class=\"navbar-nav ml-auto\">\n" +
-                    "            <li class=\"nav-item\">\n" +
-                    "                <a class=\"nav-link active\" href=\"#\">log out</a>\n" +
-                    "            </li>\n" +
+                    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>\n");
+            out.println("<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n" +
+                    "        <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
+                    "            <ul class=\"navbar-nav mr-auto\">\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/profilepage\">Profile</a>\n" +
+                    "                </li>\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <a class=\"nav-link active\" href=\"/SimpleServlet-1/friend\">Add Friend</a>\n" +
+                    "                </li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"mx-auto order-0\">\n" +
+                    "            <a class=\"navbar-brand mx-auto\" href=\"/SimpleServlet-1/miagebook\">miagebook</a>\n" +
+                    "            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
+                    "                <span class=\"navbar-toggler-icon\"></span>\n" +
+                    "            </button>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
+                    "            <ul class=\"navbar-nav ml-auto\">\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <span class=\"nav-link\">Bonjour, " + InBeforeBDD.getInstance().getUser(req).getFirstname() + "</span>\n" +
+                    "                </li>\n" +
+                    "                <li class=\" nav-item\">\n" +
+                    "                    <a class=\"nav-link \" href=\"/SimpleServlet-1/logout\">Sign out</a>\n" +
+                    "                </li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "    </nav>");
+            out.println(
                     "\n" +
-                    "        </ul>\n" +
-                    "    </div>\n" +
-                    "</nav>\n" +
-                    "\n" +
-                    "<div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                    "<table class=\"table table-borderless\">\n<tbody>\n");
+                            "<div class=\"container\" style=\"padding-top: 2.5em\">\n" +
+                            "<table class=\"table table-borderless\">\n<tbody>\n");
             for (User u : notFriend) {
                 out.println("                <tr>\n" +
-                        "                    <td>" + u.getFirstname() + " " + u.getLastname()+"</td>\n" +
+                        "                    <td>" + u.getFirstname() + " " + u.getLastname() + "</td>\n" +
                         "                    <td><button onclick=\"addFriend('" + u.getEmail() + "')\" type=\"button\" id=\"" + u.getEmail() + "\" class=\"btn btn-success\">Add Friend...</button></td>\n" +
                         "                </tr>\n");
             }
@@ -94,7 +100,7 @@ public class FriendsPage extends HttpServlet {
                     "                    });\n" +
                     "                }\n" +
                     "\n" +
-                    "            </script></body></html>");
+                    "            </script></div></body></html>");
 
 
         } else {

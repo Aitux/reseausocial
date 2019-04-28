@@ -1,49 +1,33 @@
 package model;
 
-public class Commentaire
-{
+public class Commentaire {
 
-    User user;
-    String commentaire;
-    Status statut;
+    private User user;
+    private String commentaire;
 
-    public Commentaire(User user, String commentaire, Status statut)
-    {
-        this.user = user;
-        this.commentaire = commentaire;
-        this.statut = statut;
+    public Commentaire() {
     }
 
-    public User getUser()
-    {
+    public Commentaire(User user, String commentaire) {
+        this.user = user;
+        this.commentaire = commentaire;
+    }
+
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public String getCommentaire()
-    {
+    public String getCommentaire() {
         return commentaire;
     }
 
-    public void setCommentaire(String commentaire)
-    {
+    public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
-
-    public Status getStatus()
-    {
-        return statut;
-    }
-
-    public void setStatus(Status statut)
-    {
-        this.statut = statut;
-    }
-
 }
 
 

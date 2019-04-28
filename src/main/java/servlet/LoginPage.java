@@ -19,8 +19,7 @@ public class LoginPage extends HttpServlet {
             throws IOException {
         PrintWriter out = response.getWriter();
 
-        if(!InBeforeBDD.getInstance().isConnected(reqest)) {
-//        if(username.equals("")) {
+        if (!InBeforeBDD.getInstance().isConnected(reqest)) {
             out.println("<!DOCTYPE html>\n" +
                     "<html lang=\"fr\">\n" +
                     "\n" +
@@ -71,7 +70,7 @@ public class LoginPage extends HttpServlet {
                     "        </div>\n" +
                     "    </nav>\n" +
                     "    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                    "        <form action=\"/SimpleServlet-1/miagebook\" method=\"post\">\n" +
+                    "        <form action=\"/SimpleServlet-1/signin\" method=\"post\">\n" +
                     "            <div class=\"form-group\">\n" +
                     "                <label for=\"inputEmail\">Email address</label>\n" +
                     "                <input type=\"email\" name=\"inputEmail\" class=\"form-control\" id=\"inputEmail\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n" +
@@ -82,13 +81,15 @@ public class LoginPage extends HttpServlet {
                     "                <label for=\"inputPassword\">Password</label>\n" +
                     "                <input type=\"password\" name=\"inputPassword\" class=\"form-control\" id=\"inputPassword\" placeholder=\"Password\">\n" +
                     "            </div>\n");
-            try{if (reqest.getParameter("pass").equals("error")) {
-                out.println(
-                        "            <div>\n" +
-                                "                <label class=\"text-danger\">Wrong password or email.</label>\n" +
-                                "            </div>\n");
-            }}catch (NullPointerException e){
-                e.printStackTrace();
+            try {
+                if (reqest.getParameter("pass").equals("error")) {
+                    out.println(
+                            "            <div>\n" +
+                                    "                <label class=\"text-danger\">Wrong password or email.</label>\n" +
+                                    "            </div>\n");
+                }
+            } catch (NullPointerException e) {
+            System.out.println("Log in successful");
             }
 
             out.println(
@@ -107,9 +108,9 @@ public class LoginPage extends HttpServlet {
                             "</body>\n" +
                             "\n" +
                             "</html>\n");
-    } else{
-        response.sendRedirect("/SimpleServlet-1/miagebook");
-    }
+        } else {
+            response.sendRedirect("/SimpleServlet-1/miagebook");
+        }
     }
 
     @Override
@@ -117,22 +118,24 @@ public class LoginPage extends HttpServlet {
         String email = req.getParameter("inputEmail");
         String password = req.getParameter("inputPassword");
         User u = InBeforeBDD.getInstance().getUser(email, password);
-        if (u != null) {
-            Cookie cookie = new Cookie("miagebook_mail", u.getEmail());
-            cookie.setMaxAge(60 * 60 * 24); //cookie set for 1 day
-            Cookie cookie1 = new Cookie("miagebook_password", u.getPassword());
-            cookie1.setMaxAge(60 * 60 * 24); //cookie set for 1 day
+        try {
+            u.getEmail();
+        } catch (NullPointerException e) {
 
-            resp.addCookie(cookie);
-            resp.addCookie(cookie1);
-
-            AccueilPage ap = new AccueilPage();
-            resp.sendRedirect("/SimpleServlet-1/miagebook");
-        } else {
             resp.sendRedirect("/SimpleServlet-1/signin?pass=error");
         }
+        Cookie cookie = new Cookie("miagebook_mail", u.getEmail());
+        cookie.setMaxAge(60 * 60 * 24); //cookie set for 1 day
+        Cookie cookie1 = new Cookie("miagebook_password", u.getPassword());
+        cookie1.setMaxAge(60 * 60 * 24); //cookie set for 1 day
+
+        resp.addCookie(cookie);
+        resp.addCookie(cookie1);
+        resp.sendRedirect("/SimpleServlet-1/miagebook");
+
 
     }
+
 
     @Override
     public void init() {

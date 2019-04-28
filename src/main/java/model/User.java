@@ -1,7 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.glassfish.jersey.internal.guava.Lists;
+
+import java.util.*;
 
 public class User {
 
@@ -14,6 +15,8 @@ public class User {
     private List<Status> statuts;
 
     public User() {
+        this.friends = new ArrayList<>();
+        this.statuts = new ArrayList<>();
     }
 
     public User(String firstname, String lastname, String password, String email, String sexe) {
@@ -117,4 +120,23 @@ public class User {
                 ", sexe='" + sexe + '\'' +
                 '}';
     }
-}
+
+    public List<Status> getLatestStatus() {
+        List<Status> res = new ArrayList<>();
+        res.addAll(getStatus());
+        friends.forEach(x -> {
+            if (x.getStatus().size() > 10) {
+                res.addAll(x.getStatus().subList(0, 10));
+            } else {
+                res.addAll(x.getStatus());
+            }
+        });
+
+        res.sort(Comparator.comparing(Status::getDate));
+        Collections.reverse(res);
+        if (res.size() > 10)
+            return res.subList(0, 10);
+        else
+            return res;
+        }
+    }

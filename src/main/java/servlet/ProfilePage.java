@@ -38,30 +38,36 @@ public class ProfilePage extends HttpServlet {
                     "</head>\n" +
                     "\n" +
                     "<body>\n" +
-                    "<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n" +
-                    "    <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
-                    "        <ul class=\"navbar-nav mr-auto\">\n" +
-                    "            <li class=\"nav-item\">\n" +
-                    "                <a class=\"nav-link\" href=\"#\">Home</a>\n" +
-                    "            </li>\n" +
-                    "        </ul>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"mx-auto order-0\">\n" +
-                    "        <a class=\"navbar-brand mx-auto\" href=\"#\">miagebook</a>\n" +
-                    "        <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
-                    "            <span class=\"navbar-toggler-icon\"></span>\n" +
-                    "        </button>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
-                    "        <ul class=\"navbar-nav ml-auto\">\n" +
-                    "            <li class=\"nav-item\">\n" +
-                    "                <a class=\"nav-link active\" href=\"#\">log out</a>\n" +
-                    "            </li>\n" +
-                    "\n" +
-                    "        </ul>\n" +
-                    "    </div>\n" +
-                    "</nav>\n" +
-                    "\n" +
+                    "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>\n");
+            out.println("<nav class=\"navbar navbar-expand-md navbar-dark bg-dark\">\n" +
+                    "        <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
+                    "            <ul class=\"navbar-nav mr-auto\">\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <a class=\"nav-link active\" href=\"/SimpleServlet-1/profilepage\">Profile</a>\n" +
+                    "                </li>\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/friend\">Add Friend</a>\n" +
+                    "                </li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"mx-auto order-0\">\n" +
+                    "            <a class=\"navbar-brand mx-auto\" href=\"/SimpleServlet-1/miagebook\">miagebook</a>\n" +
+                    "            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
+                    "                <span class=\"navbar-toggler-icon\"></span>\n" +
+                    "            </button>\n" +
+                    "        </div>\n" +
+                    "        <div class=\"navbar-collapse collapse w-100 order-3 dual-collapse2\">\n" +
+                    "            <ul class=\"navbar-nav ml-auto\">\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <span class=\"nav-link\">Bonjour, " + InBeforeBDD.getInstance().getUser(req).getFirstname() + "</span>\n" +
+                    "                </li>\n" +
+                    "                <li class=\" nav-item\">\n" +
+                    "                    <a class=\"nav-link \" href=\"/SimpleServlet-1/logout\">Sign out</a>\n" +
+                    "                </li>\n" +
+                    "            </ul>\n" +
+                    "        </div>\n" +
+                    "    </nav>");
+            out.println("\n" +
                     "<div class=\"container\" style=\"padding-top: 2.5em\">\n" +
                     "<form action=\"\" method=\"post\">\n" +
                     "    <div class=\"form-group\">\n" +
@@ -100,12 +106,12 @@ public class ProfilePage extends HttpServlet {
                     "\n" +
                     "    <div class=\"form-group\">\n" +
                     "        <h3>Friend List</h3><hr>\n" +
-                    "<table class=\"table table-borderless\">\n<tbody>\n>");
+                    "<table class=\"table table-borderless\">\n<tbody>\n");
             for (User u :
                     current_user.getFriends()) {
                 out.println("<tr>\n" +
-                        "<td>" + u.getFirstname() + " " + u.getLastname() +"</td>\n" +
-                        "<td><button onclick=\"deleteFriend('" + u.getEmail() + "'\" type=\"button\" class=\"btn btn-danger\">Remove friend...</button></td>\n" +
+                        "<td>" + u.getFirstname() + " " + u.getLastname() + "</td>\n" +
+                        "<td><button onclick=\"removeFriend('" + u.getEmail() + "')\" type=\"button\" class=\"btn btn-danger\">Remove friend...</button></td>\n" +
                         "</tr>\n");
             }
 
@@ -118,27 +124,26 @@ public class ProfilePage extends HttpServlet {
                     "<!-- Coding End -->\n" +
                     "\n" +
                     "<!-- jQuery first, then Popper.js, then Bootstrap JS -->\n" +
-                    "<script src=\"https://code.jquery.com/jquery-3.3.1.slim.min.js\" integrity=\"sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo\" crossorigin=\"anonymous\"></script>\n" +
                     "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js\" integrity=\"sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49\" crossorigin=\"anonymous\"></script>\n" +
                     "<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js\" integrity=\"sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy\" crossorigin=\"anonymous\"></script>\n" +
-                            "<script>\n" +
-                            "                function removeFriend(mail) {\n" +
-                            "                    $.ajax({\n" +
-                            "                        type: 'POST',\n" +
-                            "                        url: \"v1/friend/delete/\" + '" + current_user.getEmail() + "',\n" +
-                            "                        contentType: \"application/json\",\n" +
-                            "                        dataType: \"json\",\n" +
-                            "                        data: JSON.stringify({\"email\":mail}),\n" +
-                            "                        success: (data, textStatus, jqXHR) => {\n" +
-                            "                           location.reload();\n" +
-                            "                        },\n" +
-                            "                        error: (jqXHR, textStatus, errorThrown) => {\n" +
-                            "                           location.reload();\n" +
-                            "                        }\n" +
-                            "                    });\n" +
-                            "                }\n" +
-                            "\n" +
-                            "            </script>" +
+                    "<script>\n" +
+                    "                function removeFriend(mail) {\n" +
+                    "                    $.ajax({\n" +
+                    "                        type: 'POST',\n" +
+                    "                        url: \"v1/friend/delete/\" + '" + current_user.getEmail() + "',\n" +
+                    "                        contentType: \"application/json\",\n" +
+                    "                        dataType: \"json\",\n" +
+                    "                        data: JSON.stringify({\"email\":mail}),\n" +
+                    "                        success: (data, textStatus, jqXHR) => {\n" +
+                    "                           location.reload();\n" +
+                    "                        },\n" +
+                    "                        error: (jqXHR, textStatus, errorThrown) => {\n" +
+                    "                           location.reload();\n" +
+                    "                        }\n" +
+                    "                    });\n" +
+                    "                }\n" +
+                    "\n" +
+                    "            </script>" +
                     "</body>\n" +
                     "</html>");
         } else {

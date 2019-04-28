@@ -1,7 +1,10 @@
 package servlet;
 
 import model.InBeforeBDD;
+import model.StatusGenerator;
+import model.User;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,9 +16,8 @@ public class AccueilPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-
+        User current_user = InBeforeBDD.getInstance().getUser(req);
         boolean flag = InBeforeBDD.getInstance().isConnected(req);
-        System.out.println(flag);
 
         out.println("<!DOCTYPE html>\n" +
                 "<html lang=\"fr\">\n" +
@@ -40,6 +42,7 @@ public class AccueilPage extends HttpServlet {
                 "</head>\n" +
                 "\n" +
                 "<body>\n" +
+                "<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>\n" +
                 "    <!-- Start coding here -->\n");
 
         if (!flag) {
@@ -75,12 +78,15 @@ public class AccueilPage extends HttpServlet {
                     "        <div class=\"navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2\">\n" +
                     "            <ul class=\"navbar-nav mr-auto\">\n" +
                     "                <li class=\"nav-item\">\n" +
-                    "                    <a class=\"nav-link\" href=\"#\">Profile</a>\n" +
+                    "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/profilepage\">Profile</a>\n" +
+                    "                </li>\n" +
+                    "                <li class=\"nav-item\">\n" +
+                    "                    <a class=\"nav-link\" href=\"/SimpleServlet-1/friend\">Add Friend</a>\n" +
                     "                </li>\n" +
                     "            </ul>\n" +
                     "        </div>\n" +
                     "        <div class=\"mx-auto order-0\">\n" +
-                    "            <a class=\"navbar-brand mx-auto\" href=\"#\">miagebook</a>\n" +
+                    "            <a class=\"navbar-brand mx-auto\" href=\"/SimpleServlet-1/miagebook\">miagebook</a>\n" +
                     "            <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\".dual-collapse2\">\n" +
                     "                <span class=\"navbar-toggler-icon\"></span>\n" +
                     "            </button>\n" +
@@ -91,13 +97,14 @@ public class AccueilPage extends HttpServlet {
                     "                    <span class=\"nav-link\">Bonjour, " + InBeforeBDD.getInstance().getUser(req).getFirstname() + "</span>\n" +
                     "                </li>\n" +
                     "                <li class=\" nav-item\">\n" +
-                    "                    <a class=\"nav-link \" href=\"#\">Sign out</a>\n" +
+                    "                    <a class=\"nav-link \" href=\"/SimpleServlet-1/logout\">Sign out</a>\n" +
                     "                </li>\n" +
                     "            </ul>\n" +
                     "        </div>\n" +
                     "    </nav>");
         }
         if (!flag) {
+
             out.println(
                     "    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
                             "        <div style=\"background-color: #4267B2\">\n" +
@@ -123,17 +130,63 @@ public class AccueilPage extends HttpServlet {
                             "\n" +
                             "    </div>\n");
         } else {
-            out.println("    <div class=\"container\" style=\"padding-top: 2.5em\">\n" +
-                    "        <div class=\"card text-center\">\n" +
-                    "            <div class=\"card-header\">From miagebook dev team</div>\n" +
-                    "            <div class=\"card-body\">\n" +
-                    "                <h4 class=\"card-title\">Thank you for trying our app !</h4>\n" +
-                    "                <p class=\"card-text\">It was made with &lt;3 and [ ] !</p>\n" +
-                    "                <p class=\"card-text\">This webapp is still \"Work in progress\" ! Do not hesitate to come back sometimes to check what we've done !</p>\n" +
-                    "            </div>\n" +
-                    "            <div class=\"card-footer text-muted\">03.26.2019</div>\n" +
-                    "        </div>\n" +
-                    "    </div>");
+
+
+            out.println("<div class=\"container\" style=\"padding-top: 2.5em\">\n");
+            out.println(" <div class=\"form-group\">\n" +
+                    "            <textarea class=\"form-control\" id=\"status\" rows=\"3\" placeholder=\"What's on your mind ?\"></textarea>\n" +
+                    "            <button onclick=\"postStatus()\" type=\"button\" class=\"btn btn-outline-primary btn-block\">Create Status</button>\n" +
+                    "        </div>");
+
+            current_user.getLatestStatus().forEach(x -> {
+                out.println(StatusGenerator.generateStatus(x));
+            });
+            out.println("</div>");
+            out.println("<script>\n" +
+                    " function postComment(idx) {\n" +
+                    "            let x = $(\"#comment_\" + idx).val();\n" +
+                    "            $.ajax({\n" +
+                    "                type: 'POST',\n" +
+                    "                url: \"v1/commentaire/" + current_user.getEmail() + "/\" + idx,\n" +
+                    "                contentType: \"application/json\",\n" +
+                    "                dataType: \"json\",\n" +
+                    "                data: JSON.stringify({\n" +
+                    "                    \"commentaire\": x\n" +
+                    "                }),\n" +
+                    "                success: (data, textStatus, jqXHR) => {\n" +
+                    "                    location.reload();\n" +
+                    "                },\n" +
+                    "                error: (jqXHR, textStatus, errorThrown) => {\n" +
+                    "                    location.reload();\n" +
+                    "                }\n" +
+                    "\n" +
+                    "            });\n" +
+                    "}" +
+                    "\n" +
+                    "    </script>\n");
+            out.println("<script>\n" +
+                    "   function postStatus() {\n" +
+                    "            let x = $(\"#status\").val();\n" +
+                    "            $.ajax({\n" +
+                    "                type: 'POST',\n" +
+                    "                url: \"v1/status/"+current_user.getEmail()+"\",\n" +
+                    "                contentType: \"application/json\",\n" +
+                    "                dataType: \"json\",\n" +
+                    "                data: JSON.stringify({\n" +
+                    "                    \"status\": x\n" +
+                    "                }),\n" +
+                    "                success: (data, textStatus, jqXHR) => {\n" +
+                    "                    location.reload();\n" +
+                    "                },\n" +
+                    "                error: (jqXHR, textStatus, errorThrown) => {\n" +
+                    "                    console.log(\"error\");\n" +
+                    "                    location.reload();\n" +
+                    "                }\n" +
+                    "\n" +
+                    "            });\n" +
+                    "        }" +
+                    "\n" +
+                    "    </script>");
         }
         out.println(
                 "</body>\n" +
@@ -143,6 +196,11 @@ public class AccueilPage extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }

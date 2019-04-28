@@ -15,7 +15,9 @@ public class SignupPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         PrintWriter out = resp.getWriter();
-
+        if (InBeforeBDD.getInstance().isConnected(req)) {
+            resp.sendRedirect("/SimpleServlet-1/miagebook");
+        }
         out.println("<!DOCTYPE html>\n" +
                 "<html lang=\"fr\">\n" +
                 "\n" +
